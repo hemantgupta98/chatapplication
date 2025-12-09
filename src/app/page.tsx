@@ -33,8 +33,14 @@ export default function Page() {
 
             <SidebarContent>
               <SidebarGroup>
-                <SidebarGroupLabel>Navigation</SidebarGroupLabel>
-                <SidebarGroupContent>
+                <SidebarGroupLabel>
+                  <input
+                    type="text"
+                    placeholder="Search "
+                    className="h-8 w-full bg-gray-200 text-black font-semibold p-2 focus:outline-none focus:ring-2 focus:ring-blue-500 rounded-md"
+                  />
+                </SidebarGroupLabel>
+                <SidebarGroupContent className="mt-5">
                   <SidebarMenu>
                     <SidebarMenuItem>
                       <SidebarMenuButton asChild>
@@ -57,30 +63,6 @@ export default function Page() {
                         <Link href="/users">
                           <Users />
                           <span>Users</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                  </SidebarMenu>
-                </SidebarGroupContent>
-              </SidebarGroup>
-
-              <SidebarGroup>
-                <SidebarGroupLabel>Account</SidebarGroupLabel>
-                <SidebarGroupContent>
-                  <SidebarMenu>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton asChild>
-                        <Link href="/profile">
-                          <User />
-                          <span>Profile</span>
-                        </Link>
-                      </SidebarMenuButton>
-                    </SidebarMenuItem>
-                    <SidebarMenuItem>
-                      <SidebarMenuButton asChild>
-                        <Link href="/settings">
-                          <Settings />
-                          <span>Settings</span>
                         </Link>
                       </SidebarMenuButton>
                     </SidebarMenuItem>
