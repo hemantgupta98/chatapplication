@@ -16,6 +16,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "cors": "^2.8.5",
+    "dotenv": "^17.2.3",
     "expres": "^0.0.5",
     "express": "^5.2.1",
     "lucide-react": "^0.556.0",
@@ -24,6 +25,8 @@
     "react": "19.2.0",
     "react-dom": "19.2.0",
     "router": "^2.2.0",
+    "socket": "^1.1.45",
+    "socket.io": "^4.8.1",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {
