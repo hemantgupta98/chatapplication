@@ -27,6 +27,7 @@
     "router": "^2.2.0",
     "socket": "^1.1.45",
     "socket.io": "^4.8.1",
+    "socket.io-client": "^4.8.1",
     "tailwind-merge": "^3.4.0"
   },
   "devDependencies": {

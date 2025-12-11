@@ -16,9 +16,64 @@ import {
   SidebarTrigger,
   SidebarInset,
 } from "@/components/ui/sidebar";
-import { Home, MessageSquare, Settings, User, Users } from "lucide-react";
+import { Home, MessageSquare, Users } from "lucide-react";
+import { useState, useEffect, useMemo } from "react";
+import { io } from "socket.io-client";
 
 export default function Page() {
+  const socket = useMemo(
+    () =>
+      io("http://localhost:3000", {
+        withCredentials: true,
+      }),
+    []
+  );
+
+  const [messages, setMessages] = useState<{ message: string; room: string }[]>(
+    []
+  );
+  const [message, setMessage] = useState("");
+  const [room, setRoom] = useState("");
+  const [socketID, setSocketId] = useState<string | undefined>("");
+  const [roomName, setRoomName] = useState("");
+
+  const handleSubmit = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    socket.emit("message", { message, room });
+    setMessage("");
+  };
+
+  const joinRoomHandler = (e: { preventDefault: () => void }) => {
+    e.preventDefault();
+    socket.emit("join-room", roomName);
+    setRoomName("");
+  };
+
+  useEffect(() => {
+    socket.on("connect", () => {
+      if (socket.id) {
+        setSocketId(socket.id);
+      }
+      console.log("connected", socket.id);
+    });
+
+    socket.on("receive-message", (data: { message: string; room: string }) => {
+      console.log(data);
+      setMessages((messages) => [
+        ...messages,
+        data as { message: string; room: string },
+      ]);
+    });
+
+    socket.on("welcome", (s: unknown) => {
+      console.log(s);
+    });
+
+    return () => {
+      socket.disconnect();
+    };
+  }, []);
+
   return (
     <>
       <SidebarProvider>
