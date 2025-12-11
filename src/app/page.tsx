@@ -17,8 +17,11 @@ import {
   SidebarInset,
 } from "@/components/ui/sidebar";
 import { Home, MessageSquare, Users } from "lucide-react";
+import { Box, Container } from "@mui/material";
 import { useState, useEffect, useMemo } from "react";
 import { io } from "socket.io-client";
+import { Button } from "@/components/ui/button";
+import { Typography, TextField, Stack } from "@mui/material";
 
 export default function Page() {
   const socket = useMemo(
@@ -134,24 +137,59 @@ export default function Page() {
               </div>
             </SidebarFooter>
           </Sidebar>
-
-          <SidebarInset>
-            <header className="flex h-16 items-center gap-2 border-b px-6">
-              <SidebarTrigger />
-              <h1 className="text-lg font-semibold">Chat Application</h1>
-            </header>
-            <main className="flex-1 p-6">
-              <div className="rounded-lg border bg-card p-6">
-                <h2 className="text-2xl font-bold mb-4">Welcome to Chat App</h2>
-                <p className="text-muted-foreground">
-                  Your sidebar is now fully functional! Click the menu icon to
-                  toggle it.
-                </p>
-              </div>
-            </main>
-          </SidebarInset>
         </div>
       </SidebarProvider>
+      <Container maxWidth="sm">
+        <Box sx={{ height: 10 }} />
+        <Typography
+          variant="h6"
+          component="div"
+          gutterBottom
+          className="mb-100"
+        >
+          {socketID}
+        </Typography>
+
+        <form onSubmit={joinRoomHandler}>
+          <h5>Join Room</h5>
+          <TextField
+            value={roomName}
+            onChange={(e) => setRoomName(e.target.value)}
+            id="outlined-basic"
+            label="Room Name"
+            variant="outlined"
+          />
+          <Button type="submit">Join</Button>
+        </form>
+
+        <form onSubmit={handleSubmit}>
+          <TextField
+            value={message}
+            onChange={(e) => setMessage(e.target.value)}
+            id="outlined-basic"
+            label="Message"
+            variant="outlined"
+          />
+          <TextField
+            value={room}
+            onChange={(e) => setRoom(e.target.value)}
+            id="outlined-basic"
+            label="Room"
+            variant="outlined"
+          />
+          <Button type="submit" className="bg-blue-500 text-black">
+            Send
+          </Button>
+        </form>
+
+        <Stack>
+          {messages.map((m, i) => (
+            <Typography key={i} variant="h6" component="div" gutterBottom>
+              {m.message}
+            </Typography>
+          ))}
+        </Stack>
+      </Container>
     </>
   );
 }
